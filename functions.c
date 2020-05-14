@@ -4,12 +4,12 @@
  *@stack: stack
  *@line_number: line number of error
  */
-void push(stack_t **stack, unsigned int line_number __attribute__((unused)))
+void push(stack_t **stack, unsigned int line_number)
 {
 struct _s *new = malloc(sizeof(struct stack_s));
 if (new == NULL)
 {
-fprintf(stderr, "L<line_number>: usage: push integer");
+fprintf(stderr, "L%d: usage: push integer", line_number);
 exit(EXIT_FAILURE);
 }
 new->n = data;
@@ -24,7 +24,7 @@ if (*stack != NULL)
  *@stack: stack
  *@line_number: line number of the error
  */
-void pall(stack_t **stack, unsigned int line_number __attribute__((unused)))
+void pall(stack_t **stack, unsigned int line_number)
 {
 int x;
 for (x = 0; *stack != NULL; x++)
@@ -39,13 +39,13 @@ printf("%d\n", (*stack->n));
  *@stack: stack
  *@line_number: line number of the error
  */
-void pop(stack_t **stack, unsigned int line_number __attribute__((unused)))
+void pop(stack_t **stack, unsigned int line_number)
 {
 struct stack_s *tmp, *suivant;
 unsigned int x, index;
 if (*stack == NULL)
 {
-fprintf(stderr, "L<line_number>: can't pop an empty stack");
+fprintf(stderr, "L%d: can't pop an empty stack", line_number);
 exit(EXIT_FAILURE);
 }
 tmp = *stack;
@@ -64,4 +64,18 @@ return (-1);
 suivant = tmp->next->next;
 free(tmp->next);
 tmp->next = suivant;
+}
+/**
+ *pint - function that prints the first element of the stack
+ *@stack: stack
+ *@line_number: line number of error
+ */
+void pint(stack_t **stack, unsigned int line_number)
+{
+if (*stack == NULL)
+{}
+fprintf(stderr, "L%d: can't pint, stack empty", line_number);
+exit(EXIT_FAILURE);
+}
+printf("%d\n", (*stack->data));
 }
